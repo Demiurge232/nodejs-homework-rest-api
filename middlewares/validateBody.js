@@ -1,10 +1,10 @@
-const HttpError = require("../helpers/HttpError");
-const schemas = require("../schemas/contacts");
+const { HttpError } = require("../helpers/index");
+const { schemas } = require("../models/contact");
 const validateBody = (schema) => {
   const func = (req, res, next) => {
     const { error } = schemas.addSchema.validate(req.body);
     if (error) {
-      next(HttpError(400, `missing  ${error.message}`));
+      next(HttpError(400, `missing  field ${error.message}`));
     }
   };
   return func;
