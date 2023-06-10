@@ -2,13 +2,13 @@ const { Contact } = require("../models/contact");
 const { HttpError, controllerWrapper } = require("../helpers/index");
 
 const listContacts = async (req, res) => {
-  const result = await Contact.find();
+  const result = await Contact.find({}, "-createdAt -updatedAt");
   res.json(result);
 };
 
 const getContactById = async (req, res) => {
   const id = req.params.contactId;
-  const result = await Contact.findById(id);
+  const result = await Contact.findById(id, "-createdAt -updatedAt");
   if (!result) {
     throw HttpError(404, "Not found");
   }
